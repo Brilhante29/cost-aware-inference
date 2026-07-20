@@ -7,7 +7,7 @@ program:
     - benchmark fixture
     - deterministic local evaluator
     - portfolio-compatible result JSON
-status: benchmarked
+status: published
 claim: Cost-aware inference comparator that reports local vs API token cost and latency side by side without paid credentials.
 stack:
   - python
