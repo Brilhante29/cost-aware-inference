@@ -1,68 +1,70 @@
 id: 30
-      name: cost-aware-inference
-      program:
-        id: ai-evaluation-retrieval
-        narrative_fit: Closes the platform loop by comparing quality decisions against cost and latency tradeoffs.
-        shared_assets:
-          - benchmark fixture
-          - deterministic local evaluator
-          - portfolio-compatible result JSON
-      status: benchmarked
-      claim: Cost-aware inference comparator that reports local vs API token cost and latency side by side without paid credentials.
-      stack:
-        - python
-- provider-ports
-- json
-- docker
-      language_profile:
-        primary: python
-        secondary: []
-        reason: Deterministic evaluation logic is packaged as testable Python use cases with a CLI benchmark.
-      decision_brain:
-        agent_graph:
-          mode: principal-agent-orchestrated
-          source: .portfolio/decision-brain/agent-graph.yaml
-          handoff: sdd/agent-handoff.md
-          local_first_runtime: docker
-        reuse_improvement_loop:
-          source: .portfolio/decision-brain/reuse-improvement-loop.yaml
-          review_path: sdd/reuse-improvement-review.md
-          current_status: backlog_recorded
-        principles:
-          coupling_rule: Core evaluation code depends only on standard-library interfaces and local fixtures.
-          solid: [srp, ocp, lsp, isp, dip]
-          simplicity_rule: Use deterministic fixtures before adding external LLM, vector, or billing providers.
-          testability_rule: Benchmark logic is callable without HTTP, cloud, or paid credentials.
-        stack_profile: python
-        api_style: cli-first
-        messaging: none
-        cloud:
-          mode: none
-          local_provider: kumo
-          real_provider_target: none
-          adapter_rule: Future provider integrations must stay behind ports/adapters.
-        database: fixture-files
-        runtime: python-cli
-        library_policy: Prefer standard library for baseline reproducibility; add provider libraries only behind adapters.
-        record_path: sdd/technical-decision.md
-      architecture:
-        style: clean-architecture
-        reason: The metric and benchmark use cases must stay independent from CLI, fixtures, and future providers.
-        dependency_rule: Domain metrics and application benchmark orchestration do not import interface code.
-      design_system:
-        tokens: .portfolio/design-system/tokens.yaml
-        readme_components: [readme_header, benchmark_card, architecture_card, references_table]
-        diagram_required: true
-      reuse:
-        kit_version: local
-        uses: [catalog, programs, decision-brain, reuse-improvement-loop, architecture, language-profiles, design-system, sdd, harness, templates, skills]
-      benchmark:
-        primary_metric: api_cost_per_1k_tokens_usd
-        unit: usd
-        command: python -m cost_aware_inference benchmark --output benchmarks/results/cost-aware-baseline.json
-        result_path: benchmarks/results/cost-aware-baseline.json
-      release:
-        docker: Dockerfile
-        no_secret_default_path: true
-        readme_has_number: true
-        references_documented: true
+name: cost-aware-inference
+program:
+  id: ai-evaluation-retrieval
+  narrative_fit: Closes the platform loop with measured provider usage and explicit cost assumptions.
+  shared_assets:
+    - benchmark request fixture
+    - provider port
+    - portfolio-compatible result JSON
+    - per-provider sample contract
+status: benchmarked
+claim: Executes a deterministic local inference baseline, measures observed latency and token usage, and estimates cost from separately configured prices; external HTTP comparison is optional.
+stack:
+  - python
+  - ports-and-adapters
+  - openai-compatible-http
+  - json
+  - docker
+language_profile:
+  primary: python
+  secondary: []
+  reason: Standard-library Python keeps the offline benchmark deterministic while exposing testable provider boundaries.
+decision_brain:
+  agent_graph:
+    mode: principal-agent-orchestrated
+    source: .portfolio/decision-brain/agent-graph.yaml
+    handoff: sdd/agent-handoff.md
+    local_first_runtime: docker
+  reuse_improvement_loop:
+    source: .portfolio/decision-brain/reuse-improvement-loop.yaml
+    review_path: sdd/reuse-improvement-review.md
+    current_status: backlog_recorded
+  principles:
+    coupling_rule: Application orchestration depends on the InferenceProvider protocol, never concrete HTTP infrastructure.
+    solid: [srp, ocp, lsp, isp, dip]
+    simplicity_rule: Keep one honest local baseline and one optional standard HTTP boundary.
+    testability_rule: Network transport and clock are injectable; the default suite is offline.
+  stack_profile: python
+  api_style: cli-first
+  messaging: none
+  cloud:
+    mode: local-first
+    local_provider: deterministic-extractive
+    real_provider_target: openai-compatible-http
+    adapter_rule: Endpoint, model, prices, and optional key come only from environment variables.
+  database: fixture-and-pricing-files
+  runtime: python-cli
+  library_policy: Standard library only; provider SDKs are unnecessary for the HTTP contract.
+  record_path: sdd/technical-decision.md
+architecture:
+  style: hexagonal
+  reason: Provider execution and pricing sources vary independently while benchmark policy stays stable.
+  dependency_rule: Adapters implement the provider port; domain and application never import adapters.
+design_system:
+  tokens: .portfolio/design-system/tokens.yaml
+  readme_components: [readme_header, benchmark_card, architecture_card, references_table]
+  diagram_required: true
+reuse:
+  kit_version: local
+  uses: [catalog, programs, decision-brain, reuse-improvement-loop, architecture, language-profiles, design-system, sdd, harness, templates, skills]
+benchmark:
+  primary_metric: observed_p95_latency_ms
+  unit: ms
+  command: python -m cost_aware_inference benchmark --providers local --repeat 5 --output benchmarks/results/cost-aware-baseline.json
+  result_path: benchmarks/results/cost-aware-baseline.json
+release:
+  docker: Dockerfile
+  no_secret_default_path: true
+  readme_has_number: true
+  references_documented: true
