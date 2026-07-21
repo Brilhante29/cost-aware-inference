@@ -1,15 +1,7 @@
-# #30 cost-aware-inference: api_cost_per_1k_tokens_usd = 0.00 usd
+# #30 cost-aware-inference: 1.2246 ms observed local p95
 
-Cost-aware inference comparator that reports local vs API token cost and latency side by side without paid credentials.
+The first version looked convincing but only multiplied token totals by declared latency and price constants. It did not execute inference. The corrected benchmark now runs a deterministic extractive provider 15 times, measures every call, records 640 tokens, and emits output hashes.
 
-This repository belongs to the AI Evaluation and Retrieval Systems program. Its job is narrow: prove the measurable claim through the selected component pack before adding unrelated infrastructure or features.
+Cost is intentionally a different field. The committed `US$ 0` assumption means no marginal API token tariff for the local adapter; it excludes hardware, electricity, and operations. A real OpenAI-compatible endpoint can be added through environment variables and measured under the same provider port.
 
-The benchmark is the proof. api_cost_per_1k_tokens_usd = 0.00 usd.  The result is stored in `benchmarks/results/cost-aware-baseline.json` and can be reproduced from the Docker/local path.
-
-The important architecture decision is clean-architecture. The metric and benchmark use cases must stay independent from CLI, fixtures, and future providers.
-
-The default path stays local-first. The project uses python, exposes cli-first, uses messaging mode `none`, and stores data with `fixture-files`. The dependency rule is explicit: Domain metrics and application benchmark orchestration do not import interface code.
-
-The rejected work matters as much as the implemented work. Anything that does not improve the benchmark stays out of the first version.
-
-Post angle: start with the number, show the architecture boundary, then explain which future adapter can be added without changing the core use cases.
+The architecture moved from a future promise to a visible hexagonal boundary: application policy depends on `InferenceProvider`; local processing and HTTP are adapters. The default Docker path remains offline and credential-free.

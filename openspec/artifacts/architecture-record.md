@@ -2,33 +2,28 @@
 
 ## Decision
 
-- Architecture: `clean-architecture`
+- Architecture: `hexagonal`
 - Stack profile: `python`
 - API style: `cli-first`
 - Messaging: `none`
-- Database/runtime: `fixture-files` / `python-cli`
+- Runtime: `python-cli` and Docker
 
 ## Reason
 
-The metric and benchmark use cases must stay independent from CLI, fixtures, and future providers.
-
-## Dependency Direction
-
-Domain metrics and application benchmark orchestration do not import interface code.
+Execution providers and pricing sources vary independently. Benchmark policy depends on a narrow port and domain values; local text processing and HTTP stay in adapters.
 
 ## Boundaries
 
-- none recorded
-
-## Library Policy
-
-Prefer standard library for baseline reproducibility; add provider libraries only behind adapters.
+- Domain: request, response, and pricing values.
+- Application: measured benchmark orchestration.
+- Port: provider execution contract.
+- Adapters: local algorithm and optional HTTP transport.
+- Interface: CLI composition and JSON output.
 
 ## Principle Check
 
-- SRP: keep benchmark, API, use cases, and adapters separate.
-- OCP: new providers must be adapters, not domain rewrites.
-- LSP: replacement providers must preserve observable behavior.
-- ISP: ports stay narrow.
-- DIP: application depends on behavior, not infrastructure.
-- KISS/YAGNI: leave out anything that does not improve the benchmark.
+- SRP separates execution, timing, pricing, transport, and serialization.
+- OCP/LSP permit provider substitution under the same usage contract.
+- ISP keeps the port minimal.
+- DIP prevents provider infrastructure from entering application policy.
+- KISS/YAGNI avoid SDKs, frameworks, and services that add no evidence.

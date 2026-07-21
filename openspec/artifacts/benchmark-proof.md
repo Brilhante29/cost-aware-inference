@@ -2,17 +2,19 @@
 
 ## Primary Metric
 
-- Metric: `api_cost_per_1k_tokens_usd`
-- Unit: `usd`
-- Result: api_cost_per_1k_tokens_usd = 0.00 usd
+- Metric: `observed_p95_latency_ms`
+- Unit: `ms`
+- Result: `1.2246 ms`
+- Samples: 15
+- Observed usage: 465 input and 175 output tokens
 - Result path: `benchmarks/results/cost-aware-baseline.json`
 
 ## Command
 
-    python -m cost_aware_inference benchmark --output benchmarks/results/cost-aware-baseline.json
+    python -m cost_aware_inference benchmark --providers local --repeat 5 --output benchmarks/results/cost-aware-baseline.json
 
-## Evidence
+## Evidence Boundary
 
+The measured values are latency and adapter-reported token counts. `estimated_cost_usd` is derived from a separate pricing assumption. The local adapter is deterministic extractive processing, not an LLM, and the committed result contains no API comparison.
 
-
-The README/post number must come from the committed benchmark JSON, not from manual text.
+The README number comes from the committed JSON. Reruns can produce different latency on another host.

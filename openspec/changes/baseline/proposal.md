@@ -1,30 +1,20 @@
-# Change Proposal: baseline
+# Change Proposal: honest pluggable inference benchmark
 
 Project: `cost-aware-inference` (#30)
 
 ## Intent
 
-Cost-aware inference comparator that reports local vs API token cost and latency side by side without paid credentials.
-
-## Why This Change Exists
-
-Describe the smallest change that improves the measurable claim or removes a
-known portfolio risk.
+Replace the declared-number calculator with executed provider work, observed per-request measurements, and separately sourced cost assumptions.
 
 ## Scope
 
-- In scope: <scope>
-- Out of scope: paid credentials, unrelated infrastructure, and unmeasured features.
+- In scope: provider port, deterministic local adapter, optional environment-configured HTTP adapter, samples, pricing separation, tests, Docker, and evidence.
+- Out of scope: paid default calls, model-quality claims, provider SDKs, UI, and full infrastructure cost modeling.
 
 ## Portfolio Impact
 
-Program: `ai-evaluation-retrieval`
-
-This change should produce evidence, fixtures, decisions, or components that
-can be reused by sibling repositories without moving project-specific behavior
-into the kit.
+This establishes an honest measured-versus-assumed contract for the AI Evaluation and Retrieval Systems program. The reusable shape is recorded as kit backlog, while prompts and prices remain project-owned.
 
 ## Acceptance Signal
 
-The benchmark in `project.yaml` remains reproducible and its result is recorded
-in `benchmarks/results/`.
+The committed result satisfies the shared benchmark fields, includes 15 local samples, and passes the project contract validator without credentials or network.

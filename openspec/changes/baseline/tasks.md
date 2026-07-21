@@ -1,21 +1,23 @@
-# Change Tasks: baseline
+# Change Tasks: honest pluggable inference benchmark
 
 ## Planning
 
-- [x] Read `project.yaml` and the selected component pack.
-- [x] Generate the SDD, OpenSpec, and agent context artifacts.
-- [ ] Confirm the architecture and rejected alternatives.
+- [x] Replace the simulated-number claim with an executed benchmark claim.
+- [x] Select hexagonal boundaries and record rejected alternatives.
 
 ## Implementation
 
-- [ ] Implement the smallest useful slice.
-- [ ] Keep domain/use-case code independent from infrastructure.
-- [ ] Add or update tests for the observable contract.
-- [ ] Update the benchmark and commit the JSON result.
+- [x] Add provider port and deterministic local adapter.
+- [x] Add optional environment-only HTTP adapter.
+- [x] Separate measured runtime/usage from pricing assumptions.
+- [x] Emit shared root fields and per-provider samples.
+- [x] Add offline tests and strict result validator.
+- [x] Update Docker, README, SDD, and OpenSpec.
 
 ## Verification
 
-- [ ] Run the Docker path.
-- [ ] Run tests and project validation.
-- [ ] Run `openspec validate --strict` when the CLI is installed.
-- [ ] Review `sdd/reuse-improvement-review.md` and patch, backlog, or reject the finding.
+- [x] Run seven unit tests.
+- [x] Generate and validate the local baseline.
+- [x] Run the consolidated project validator.
+- [x] Build and execute the Docker image.
+- [ ] Verify remote CI after publication.

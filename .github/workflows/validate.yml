@@ -4,17 +4,26 @@ on:
   push:
   pull_request:
 
+permissions:
+  contents: read
+
 jobs:
   validate:
     runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      PYTHONPATH: src
     steps:
       - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-      - name: Install package
-        run: pip install -e .
-      - name: Run tests
-        run: python -m unittest discover -s tests -v
-      - name: Run benchmark
-        run: python -m cost_aware_inference benchmark --output benchmarks/results/cost-aware-baseline.json
+      - name: Run tests and reproduce contracts
+        run: python tools/validate-runtime.py
+      - name: Validate Docker path
+        run: |
+          docker build -t cost-aware-inference .
+          docker run --rm cost-aware-inference > docker-result.json
+          python tools/validate-benchmark.py docker-result.json

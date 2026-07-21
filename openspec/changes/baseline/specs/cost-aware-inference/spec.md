@@ -1,30 +1,46 @@
-# cost-aware-inference Specification
+# cost-aware-inference Specification Delta
 
-## Purpose
+## ADDED Requirements
 
-Cost-aware inference comparator that reports local vs API token cost and latency side by side without paid credentials.
+### Requirement: Observed provider execution
 
-## Requirements
+The system SHALL execute each configured provider and measure wall-clock duration per request.
 
-### Requirement: reproducible portfolio proof
+#### Scenario: Offline baseline
 
-The system SHALL expose a local-first path that proves the primary benchmark
-declared in `project.yaml` without paid credentials.
+- GIVEN committed prompt fixtures and the local adapter
+- WHEN the benchmark runs five repetitions
+- THEN 15 provider calls are executed
+- AND each sample records latency, input/output tokens, and output SHA-256.
 
-#### Scenario: default verification
+### Requirement: Measured and assumed data remain separate
 
-- GIVEN the repository is checked out with its committed fixtures
-- WHEN the documented Docker or local benchmark command runs
-- THEN a JSON result is written under `benchmarks/results/`
-- AND the README reports the same measured number
+The system SHALL calculate estimated cost only after observing token usage and SHALL retain price source and scope.
 
-### Requirement: replaceable integrations
+#### Scenario: Local price assumption
 
-The system SHALL keep external providers behind ports or adapters whenever a
-provider is not part of the core claim.
+- GIVEN a zero marginal token tariff
+- WHEN local usage is measured
+- THEN estimated token charge is zero
+- AND the result states that hardware, electricity, and operations are excluded.
 
-#### Scenario: adapter substitution
+### Requirement: Replaceable provider
 
-- GIVEN a local adapter and a future real-provider adapter implement the same port
-- WHEN either adapter is selected by configuration
-- THEN the application use cases keep the same observable contract
+The application SHALL depend on `InferenceProvider`, not a concrete transport.
+
+#### Scenario: Optional HTTP provider
+
+- GIVEN URL, model, prices, source, and optional key in environment variables
+- WHEN `--providers local,http` runs
+- THEN both adapters emit the same sample contract
+- AND no secret is serialized.
+
+### Requirement: Offline test suite
+
+The HTTP adapter SHALL accept an injected transport.
+
+#### Scenario: Unit test
+
+- GIVEN a fake opener
+- WHEN the HTTP adapter is exercised
+- THEN request shape and usage parsing are verified without network access.

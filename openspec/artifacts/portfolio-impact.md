@@ -2,26 +2,20 @@
 
 ## Program
 
-- Program id: `ai-evaluation-retrieval`
-- Program name: AI Evaluation and Retrieval Systems
-- Component pack: `ai-evaluation-retrieval`
+`AI Evaluation and Retrieval Systems`
 
-## System Story
+## Role In The System
 
-Closes the platform loop by comparing quality decisions against cost and latency tradeoffs.
-
-This repository is not a standalone demo. It is one part of the AI Evaluation and Retrieval Systems system and should produce reusable fixtures, benchmark patterns, and decisions for later repositories.
+This repository owns provider execution evidence and cost estimation. Sibling evaluation repositories can consume the same distinction: quality and runtime are observed, while monetary values cite a price source and scope.
 
 ## Proficiency Signal
 
-- Primary profile: `python`
-- Stack profile: `python`
-- Stack:
-- python
-- provider-ports
-- json
-- docker
+- Python ports and adapters without framework ceremony.
+- Deterministic and injectable benchmark harness.
+- Offline tests for an optional HTTP integration.
+- Docker and shared JSON evidence.
+- Explicit limits on claims and publication status.
 
-## Post Angle
+## Reuse Candidate
 
-Open with api_cost_per_1k_tokens_usd = 0.00 usd, then explain why the architecture and local-first path make the result reproducible.
+Promote the provider-sample contract and no-network adapter testing recipe only after a second repository uses the same shape successfully.

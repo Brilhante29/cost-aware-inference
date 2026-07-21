@@ -2,32 +2,36 @@
 
 ## Measurable Claim
 
-Cost-aware inference comparator that reports local vs API token cost and latency side by side without paid credentials.
+Execute provider work and report observed p95 latency plus token usage, while keeping monetary cost as an estimate derived from an explicit pricing source.
 
 ## Problem
 
-Closes the platform loop by comparing quality decisions against cost and latency tradeoffs.
+Inference decisions are unreliable when teams compare declared latencies and prices without running the same requests or separating observations from assumptions.
 
 ## In Scope
 
-- Use the selected component pack: `ai-evaluation-retrieval`.
-- Keep the project under the AI Evaluation and Retrieval Systems program.
-- Preserve the benchmark contract: `api_cost_per_1k_tokens_usd` in `benchmarks/results/cost-aware-baseline.json`.
-- Keep the default path local-first and reproducible.
+- Deterministic offline provider with real text processing.
+- Replaceable provider port.
+- Optional OpenAI-compatible HTTP adapter configured from environment variables.
+- Per-request latency, token usage, and output identity.
+- Separate price assumptions and estimated cost.
+- Shared portfolio benchmark root contract.
 
 ## Out Of Scope
 
-- Paid credentials for the default demo.
-- External infrastructure that is not required by the benchmark.
-- Replacing local portfolio skills with external components silently.
+- LLM quality claims for the local baseline.
+- Paid or networked calls on the default path.
+- Full hardware total cost of ownership.
+- A winner claim without a same-run provider comparison.
 
 ## Default Demo Path
 
 - Status: benchmarked
-- Runtime: python-cli
-- Benchmark command: `python -m cost_aware_inference benchmark --output benchmarks/results/cost-aware-baseline.json`
+- Runtime: Python CLI or Docker
+- Benchmark command: `python -m cost_aware_inference benchmark --providers local --repeat 5 --output benchmarks/results/cost-aware-baseline.json`
 
 ## Public Proof
 
-- Benchmark: api_cost_per_1k_tokens_usd = 0.00 usd
-- Result path: `benchmarks/results/cost-aware-baseline.json`
+- `observed_p95_latency_ms = 1.2246 ms`
+- 15 local calls and 640 observed tokens.
+- Result: `benchmarks/results/cost-aware-baseline.json`.
