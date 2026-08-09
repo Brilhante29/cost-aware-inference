@@ -81,15 +81,21 @@ class BenchmarkRunner:
             "metric": "observed_p95_latency_ms",
             "value": measured["p95_latency_ms"],
             "unit": "ms",
-            "timestamp": datetime.now(timezone.utc).isoformat(timespec="seconds"),
+            "timestamp": datetime.now(timezone.utc)
+            .isoformat(timespec="seconds")
+            .replace("+00:00", "Z"),
             "command": command,
             "repeat": repeats,
+            "measured_iterations": measured["request_count"],
             "samples": [row["observed_latency_ms"] for row in primary["samples"]],
             "summary": {
                 "mean_latency_ms": measured["mean_latency_ms"],
                 "p50_latency_ms": measured["p50_latency_ms"],
                 "p95_latency_ms": measured["p95_latency_ms"],
                 "request_count": measured["request_count"],
+                "measured_iterations": measured["request_count"],
+                "provider_count": len(provider_results),
+                "comparison_available": len(provider_results) > 1,
                 "total_input_tokens": measured["total_input_tokens"],
                 "total_output_tokens": measured["total_output_tokens"],
                 "estimated_cost_usd": primary["estimated_cost_usd"],

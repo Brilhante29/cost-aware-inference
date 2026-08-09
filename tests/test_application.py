@@ -32,6 +32,11 @@ class BenchmarkRunnerTests(unittest.TestCase):
         required = {"project", "metric", "value", "unit", "timestamp", "command"}
         self.assertTrue(required.issubset(result))
         self.assertEqual(result["metric"], "observed_p95_latency_ms")
+        self.assertEqual(result["repeat"], 1)
+        self.assertEqual(result["measured_iterations"], 2)
+        self.assertEqual(result["summary"]["provider_count"], 1)
+        self.assertFalse(result["summary"]["comparison_available"])
+        self.assertTrue(result["timestamp"].endswith("Z"))
         self.assertEqual(result["samples"], [1.0, 2.0])
         self.assertEqual(result["value"], 2.0)
         row = result["providers"][0]

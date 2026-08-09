@@ -24,6 +24,12 @@ def validate(document: dict) -> None:
     primary_latencies = [sample["observed_latency_ms"] for sample in primary["samples"]]
     require(document.get("samples") == primary_latencies, "root samples must mirror the primary provider")
     require(math.isclose(document["value"], primary["measured"]["p95_latency_ms"]), "root metric must match the primary provider")
+    require(document.get("repeat", 0) > 0, "repeat must count process workload repetitions")
+    require(document.get("measured_iterations") == len(primary_latencies), "measured iterations must match primary samples")
+    summary = document.get("summary", {})
+    require(summary.get("measured_iterations") == len(primary_latencies), "summary measured iterations mismatch")
+    require(summary.get("provider_count") == len(document["providers"]), "provider count mismatch")
+    require(summary.get("comparison_available") is (len(document["providers"]) > 1), "comparison flag mismatch")
 
     for provider in document["providers"]:
         require(provider.get("provider"), "provider id is required")

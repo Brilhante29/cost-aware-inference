@@ -15,25 +15,29 @@ Project: `30 - cost-aware-inference`
 
 | Finding | Classification | Kit Area | Action | Status |
 |---|---|---|---|---|
-| AI evaluation repos need a shared result validator that distinguishes measured values from assumptions. | `backlog` | `contracts`, `validation` | Promote provider samples, price source/scope, output identity, and no-secret checks after sibling repos confirm the shape. | recorded |
-| External adapters need an offline test transport and environment-only secret policy. | `backlog` | `skills`, `templates` | Add an adapter testing recipe to the reuse kit. | recorded |
-| Prompt and pricing content is project-specific. | `reject` | `templates` | Keep fixtures and assumptions in this repository. | done |
+| Git blob, image, fixture, config, lock, and raw-result provenance are stable across all benchmark repositories in this macro. | `patch_now` | `harness`, `skills` | Reuse the generic V2 producer, exact validation lock, and matching Codex/Claude publication skills. | done |
+| Measured usage and estimated monetary cost require separate contracts. | `backlog` | `contracts`, `validation` | Add an optional provider-sample and pricing-assumption contract after macro closure. | recorded |
+| External provider adapters need environment-only configuration and injected offline transport tests. | `backlog` | `skills`, `templates` | Add a no-network adapter testing recipe to the reuse kit after publication. | recorded |
+| Prompts, provider IDs, tariffs, and benchmark claims are project-specific. | `reject` | `templates` | Keep domain data and exact assertions in this repository. | done |
 
 ## Patch Now Decisions
 
-- The repository now includes a strict project validator; the shared kit is not changed from this isolated worktree.
+- Reused the generic execution-derived V2 producer.
+- Reused the exact Python validation lock and proven CI sequence.
+- Added equivalent publication skills for Codex and Claude.
+- Kept cost-aware assertions in `tools/validate_publication.py`.
 
 ## Backlog Decisions
 
-- Generalize the provider-sample contract only after `llm-agent-eval` or another sibling proves the same shape.
-- Add a reusable no-network adapter test recipe to the kit.
+- Promote measured-versus-assumed provider evidence only after the macro is closed and the shared contract can be reviewed against all six repositories.
+- Add a reusable environment-only HTTP adapter test recipe.
 
 ## Rejected Improvements
 
-- Do not move prompts, provider identifiers, or price values into the kit.
+- Do not move prompts, provider identifiers, price values, or claim boundaries into the kit.
 
 ## Final Gate
 
 - [x] Reusable improvements were patched or recorded.
 - [x] Project-specific implementation was not moved into the kit.
-- [x] Validation reflects measured-versus-assumed evidence and offline adapter tests.
+- [x] Validation reflects measured-versus-assumed evidence, offline adapters, and publication provenance.

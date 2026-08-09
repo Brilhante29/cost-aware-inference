@@ -1,46 +1,34 @@
 # Agent Handoff
 
-Project: `30 - cost-aware-inference`
+This file records verifiable state and decisions, not private reasoning.
 
 ## Current State
 
-- Status: `benchmarked`.
-- Architecture: hexagonal provider port with local and optional HTTP adapters.
-- Default path: offline, deterministic, credential-free.
-- Baseline: 15 samples, p95 `1.2246 ms`, 640 observed tokens.
-- Cost boundary: token charge is estimated from a separate assumption; host cost is excluded.
-- This handoff belongs to the commit that contains it; use `git log -1 --oneline` for its SHA.
+- Project: `30 - cost-aware-inference`.
+- Status: `benchmarked`; source publication gates are implemented, but V2 and remote CI are pending.
+- Architecture: hexagonal `InferenceProvider` port with local and optional OpenAI-compatible HTTP adapters.
+- Default path: offline, deterministic, credential-free, and explicitly not an LLM.
+- Current host baseline: 15 measured calls, p95 `0.1629 ms`, 640 observed tokens.
+- Cost boundary: `US$ 0.00` is the configured marginal token tariff; host cost is excluded.
+- Provider comparison is unavailable because the committed baseline executes one provider.
 
-## Verified Commands
+## Contracts
 
-```powershell
-$env:PYTHONPATH = "src"
-python -m unittest discover -s tests -v
-python tools/validate-benchmark.py benchmarks/results/cost-aware-baseline.json
-pwsh -File tools/validate-project.ps1 -SkipDocker
-$env:OPENSPEC_TELEMETRY = "0"
-openspec validate --all --strict --no-interactive
-docker build -t cost-aware-inference .
-docker run --rm cost-aware-inference
-```
+- Requests: `data/fixtures/requests.jsonl`
+- Pricing assumptions: `data/pricing/providers.json`
+- Raw result: `benchmarks/results/cost-aware-baseline.json`
+- Publication config: `benchmarks/config/cost-aware-baseline-v2.json`
+- Publication evidence: `benchmarks/publication/cost-aware-baseline-v2.json`
+- Generic producer: `tools/generate-publication-benchmark.py`
+- Project gate: `tools/validate_publication.py`
 
-Results on 2026-07-21: 7 tests passed, project validator passed, OpenSpec passed 1/1, Docker build passed, and container JSON passed the benchmark contract.
+## Continue Safely
 
-## Continue From Here
+1. Run `python -m unittest discover -s tests -v` with `PYTHONPATH=src`.
+2. Run `python tools/validate-runtime.py` and `./tools/validate-project.ps1 -SkipDocker`.
+3. Build and execute Docker with `--network none`.
+4. Commit and push a clean source tree before generating V2.
+5. Generate V2 only through the generic producer from the exact green source SHA.
+6. Publish only after the final pushed SHA passes the same GitHub Actions workflow.
 
-1. Run `git status --short --branch` and `git log -1 --oneline` before editing.
-2. Read `README.md`, `sdd/spec.md`, and `openspec/artifacts/verification.md`.
-3. Do not call a real HTTP endpoint unless the user supplies `CAI_HTTP_*` environment configuration.
-4. Keep network disabled in tests; inject an opener instead.
-5. Re-run `tools/validate-project.ps1 -SkipDocker` after code changes and Docker only when the runtime path changed.
-6. Keep `status: benchmarked` until the exact commit is pushed and remote CI success is recorded.
-
-## Remaining Work
-
-- Push and verify GitHub Actions for the commit SHA.
-- Optionally benchmark a user-configured OpenAI-compatible endpoint in the same run as local.
-- Consider promoting the provider-sample contract to `portfolio-reuse-kit` only after a second repository proves the shape.
-
-## Near-Limit Protocol
-
-Before an agent stops because of context, quota, or time, update this file with: last successful command, current Git status, unresolved failure, files in progress, and the single next command. Never leave generated evidence unvalidated or claim publication without the remote SHA and CI result.
+Do not call a real endpoint without explicit `CAI_HTTP_*` configuration. Do not describe the local extractive baseline as an LLM, zero-cost infrastructure, or a local-versus-API winner.

@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "cost-aware-inference"
-version = "0.2.0"
+version = "0.3.0"
 description = "Observed local inference latency and token usage with explicit cost assumptions and optional HTTP adapters."
 requires-python = ">=3.10"
 dependencies = []

@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "benchmark_id": "offline-local-cost-accounting-v1",
+  "workload_version": "local-extractive-requests-v1",
+  "requests": "data/fixtures/requests.jsonl",
+  "pricing": "data/pricing/providers.json",
+  "provider_aliases": ["local"],
+  "measured_requests": 3,
+  "repeat": 5,
+  "measured_iterations": 15,
+  "concurrency": 1,
+  "comparability_key": "cost-aware:local-extractive-v1:p95-latency:3-requests-x5"
+}

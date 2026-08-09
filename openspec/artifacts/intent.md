@@ -32,6 +32,6 @@ Inference decisions are unreliable when teams compare declared latencies and pri
 
 ## Public Proof
 
-- `observed_p95_latency_ms = 1.2246 ms`
+- `observed_p95_latency_ms = 0.1629 ms`
 - 15 local calls and 640 observed tokens.
 - Result: `benchmarks/results/cost-aware-baseline.json`.

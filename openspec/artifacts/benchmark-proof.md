@@ -4,7 +4,7 @@
 
 - Metric: `observed_p95_latency_ms`
 - Unit: `ms`
-- Result: `1.2246 ms`
+- Result: `0.1629 ms`
 - Samples: 15
 - Observed usage: 465 input and 175 output tokens
 - Result path: `benchmarks/results/cost-aware-baseline.json`

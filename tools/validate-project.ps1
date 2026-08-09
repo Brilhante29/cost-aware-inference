@@ -39,6 +39,11 @@ $requiredFiles = @(
   "benchmarks/results/cost-aware-baseline.json",
   "tools/validate-benchmark.py",
   "tools/validate-runtime.py",
+  "tools/generate-publication-benchmark.py",
+  "tools/validate_publication.py",
+  "requirements-validation.lock",
+  "benchmarks/config/cost-aware-baseline-v2.json",
+  ".portfolio/contracts/benchmark-result-v2.schema.json",
   "sdd/spec.md",
   "sdd/benchmark-plan.md",
   "sdd/architecture-decision.md",
@@ -76,6 +81,7 @@ try {
     $srcPath
   }
   Invoke-Checked "runtime validation" { python tools/validate-runtime.py }
+  Invoke-Checked "publication evidence validation" { python tools/validate_publication.py }
 
   $legacy = ("ro" + "che" + "do")
   $patterns = @($legacy, ($legacy.Substring(0,1).ToUpper() + $legacy.Substring(1)))
