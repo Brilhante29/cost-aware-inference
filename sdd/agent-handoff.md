@@ -5,12 +5,13 @@ This file records verifiable state and decisions, not private reasoning.
 ## Current State
 
 - Project: `30 - cost-aware-inference`.
-- Status: `benchmarked`; source publication gates are implemented, but V2 and remote CI are pending.
+- Status: `published`; provenance-bound V2 evidence was generated from the exact green source commit.
 - Architecture: hexagonal `InferenceProvider` port with local and optional OpenAI-compatible HTTP adapters.
 - Default path: offline, deterministic, credential-free, and explicitly not an LLM.
-- Current host baseline: 15 measured calls, p95 `0.1629 ms`, 640 observed tokens.
+- Current Docker publication baseline: 15 measured calls, p95 `0.1136 ms`, 640 observed tokens.
 - Cost boundary: `US$ 0.00` is the configured marginal token tariff; host cost is excluded.
 - Provider comparison is unavailable because the committed baseline executes one provider.
+- Source commit: `a5b7e53b9992250771e4c8be7f8a616b8ef41bda`; source CI: run `31339203270` (green).
 
 ## Contracts
 

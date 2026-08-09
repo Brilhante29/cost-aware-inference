@@ -1,33 +1,33 @@
 {
   "project": "cost-aware-inference",
   "metric": "observed_p95_latency_ms",
-  "value": 0.1629,
+  "value": 0.113595,
   "unit": "ms",
-  "timestamp": "2026-08-03T23:13:01Z",
+  "timestamp": "2026-08-09T22:23:47Z",
   "command": "python -m cost_aware_inference benchmark --providers local --repeat 5 --requests data/fixtures/requests.jsonl --pricing data/pricing/providers.json --output benchmarks/results/cost-aware-baseline.json",
   "repeat": 5,
   "measured_iterations": 15,
   "samples": [
-    0.1629,
-    0.0814,
-    0.0725,
-    0.0751,
-    0.0744,
-    0.0692,
-    0.0734,
-    0.0728,
-    0.0682,
-    0.0754,
-    0.0723,
-    0.068,
-    0.0716,
-    0.0721,
-    0.0679
+    0.113595,
+    0.049639,
+    0.041312,
+    0.067333,
+    0.042464,
+    0.037925,
+    0.039307,
+    0.039068,
+    0.036793,
+    0.038777,
+    0.038907,
+    0.036682,
+    0.038235,
+    0.038446,
+    0.035971
   ],
   "summary": {
-    "mean_latency_ms": 0.07848,
-    "p50_latency_ms": 0.0725,
-    "p95_latency_ms": 0.1629,
+    "mean_latency_ms": 0.046297,
+    "p50_latency_ms": 0.038907,
+    "p95_latency_ms": 0.113595,
     "request_count": 15,
     "measured_iterations": 15,
     "provider_count": 1,
@@ -37,9 +37,9 @@
     "estimated_cost_usd": 0.0
   },
   "environment": {
-    "python": "3.10.11",
-    "platform": "Windows-10-10.0.26200-SP0",
-    "machine": "AMD64"
+    "python": "3.12.13",
+    "platform": "Linux-6.18.33.2-microsoft-standard-WSL2-x86_64-with-glibc2.41",
+    "machine": "x86_64"
   },
   "claims": {
     "latency": "observed wall-clock duration around each provider call",
@@ -57,11 +57,11 @@
         "total_input_tokens": 465,
         "total_output_tokens": 175,
         "total_tokens": 640,
-        "total_duration_ms": 1.1772,
-        "mean_latency_ms": 0.07848,
-        "p50_latency_ms": 0.0725,
-        "p95_latency_ms": 0.1629,
-        "throughput_tokens_per_second": 543662.929
+        "total_duration_ms": 0.694454,
+        "mean_latency_ms": 0.046297,
+        "p50_latency_ms": 0.038907,
+        "p95_latency_ms": 0.113595,
+        "throughput_tokens_per_second": 921587.319
       },
       "pricing_assumption": {
         "currency": "USD",
@@ -75,7 +75,7 @@
         {
           "request_id": "r1",
           "attempt": 1,
-          "observed_latency_ms": 0.1629,
+          "observed_latency_ms": 0.113595,
           "input_tokens": 31,
           "output_tokens": 13,
           "total_tokens": 44,
@@ -84,7 +84,7 @@
         {
           "request_id": "r2",
           "attempt": 1,
-          "observed_latency_ms": 0.0814,
+          "observed_latency_ms": 0.049639,
           "input_tokens": 33,
           "output_tokens": 11,
           "total_tokens": 44,
@@ -93,7 +93,7 @@
         {
           "request_id": "r3",
           "attempt": 1,
-          "observed_latency_ms": 0.0725,
+          "observed_latency_ms": 0.041312,
           "input_tokens": 29,
           "output_tokens": 11,
           "total_tokens": 40,
@@ -102,7 +102,7 @@
         {
           "request_id": "r1",
           "attempt": 2,
-          "observed_latency_ms": 0.0751,
+          "observed_latency_ms": 0.067333,
           "input_tokens": 31,
           "output_tokens": 13,
           "total_tokens": 44,
@@ -111,7 +111,7 @@
         {
           "request_id": "r2",
           "attempt": 2,
-          "observed_latency_ms": 0.0744,
+          "observed_latency_ms": 0.042464,
           "input_tokens": 33,
           "output_tokens": 11,
           "total_tokens": 44,
@@ -120,7 +120,7 @@
         {
           "request_id": "r3",
           "attempt": 2,
-          "observed_latency_ms": 0.0692,
+          "observed_latency_ms": 0.037925,
           "input_tokens": 29,
           "output_tokens": 11,
           "total_tokens": 40,
@@ -129,7 +129,7 @@
         {
           "request_id": "r1",
           "attempt": 3,
-          "observed_latency_ms": 0.0734,
+          "observed_latency_ms": 0.039307,
           "input_tokens": 31,
           "output_tokens": 13,
           "total_tokens": 44,
@@ -138,7 +138,7 @@
         {
           "request_id": "r2",
           "attempt": 3,
-          "observed_latency_ms": 0.0728,
+          "observed_latency_ms": 0.039068,
           "input_tokens": 33,
           "output_tokens": 11,
           "total_tokens": 44,
@@ -147,7 +147,7 @@
         {
           "request_id": "r3",
           "attempt": 3,
-          "observed_latency_ms": 0.0682,
+          "observed_latency_ms": 0.036793,
           "input_tokens": 29,
           "output_tokens": 11,
           "total_tokens": 40,
@@ -156,7 +156,7 @@
         {
           "request_id": "r1",
           "attempt": 4,
-          "observed_latency_ms": 0.0754,
+          "observed_latency_ms": 0.038777,
           "input_tokens": 31,
           "output_tokens": 13,
           "total_tokens": 44,
@@ -165,7 +165,7 @@
         {
           "request_id": "r2",
           "attempt": 4,
-          "observed_latency_ms": 0.0723,
+          "observed_latency_ms": 0.038907,
           "input_tokens": 33,
           "output_tokens": 11,
           "total_tokens": 44,
@@ -174,7 +174,7 @@
         {
           "request_id": "r3",
           "attempt": 4,
-          "observed_latency_ms": 0.068,
+          "observed_latency_ms": 0.036682,
           "input_tokens": 29,
           "output_tokens": 11,
           "total_tokens": 40,
@@ -183,7 +183,7 @@
         {
           "request_id": "r1",
           "attempt": 5,
-          "observed_latency_ms": 0.0716,
+          "observed_latency_ms": 0.038235,
           "input_tokens": 31,
           "output_tokens": 13,
           "total_tokens": 44,
@@ -192,7 +192,7 @@
         {
           "request_id": "r2",
           "attempt": 5,
-          "observed_latency_ms": 0.0721,
+          "observed_latency_ms": 0.038446,
           "input_tokens": 33,
           "output_tokens": 11,
           "total_tokens": 44,
@@ -201,7 +201,7 @@
         {
           "request_id": "r3",
           "attempt": 5,
-          "observed_latency_ms": 0.0679,
+          "observed_latency_ms": 0.035971,
           "input_tokens": 29,
           "output_tokens": 11,
           "total_tokens": 40,

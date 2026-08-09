@@ -1,4 +1,4 @@
-# #30 cost-aware-inference: 0.1629 ms observed local p95
+# #30 cost-aware-inference: 0.1136 ms observed local p95
 
 The first version looked convincing but only multiplied token totals by declared latency and price constants. It did not execute inference. The corrected benchmark now runs a deterministic extractive provider 15 times, measures every call, records 640 tokens, and emits output hashes.
 

@@ -8,7 +8,7 @@ program:
     - provider port
     - portfolio-compatible result JSON
     - per-provider sample contract
-status: benchmarked
+status: published
 claim: Executes a deterministic local inference baseline, measures observed latency and token usage, and estimates cost from separately configured prices; external HTTP comparison is optional.
 stack:
   - python
@@ -62,7 +62,7 @@ benchmark:
   primary_metric: observed_p95_latency_ms
   unit: ms
   command: python -m cost_aware_inference benchmark --providers local --repeat 5 --output benchmarks/results/cost-aware-baseline.json
-  result_path: benchmarks/results/cost-aware-baseline.json
+  result_path: benchmarks/publication/cost-aware-baseline-v2.json
 release:
   docker: Dockerfile
   no_secret_default_path: true

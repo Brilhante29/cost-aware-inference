@@ -20,4 +20,4 @@
 - [x] Generate and validate the local baseline.
 - [x] Run the consolidated project validator.
 - [x] Build and execute the Docker image.
-- [ ] Verify remote CI after publication.
+- [x] Verify the source commit in remote CI before generating publication evidence.

@@ -1,6 +1,6 @@
 # #30 cost-aware-inference
 
-**Measured baseline:** `0.1629 ms` observed p95 across `15` local calls and `640` observed tokens. The `US$ 0.00` token charge is a pricing assumption, not zero infrastructure cost.
+**Measured baseline:** `0.1136 ms` observed p95 across `15` local calls and `640` observed tokens. The `US$ 0.00` token charge is a pricing assumption, not zero infrastructure cost.
 
 **Claim:** A local-first benchmark that executes provider work, records latency and token usage, and applies explicit pricing assumptions through provider-neutral ports.
 
@@ -15,7 +15,7 @@ An OpenAI-compatible adapter can execute the same requests against Ollama, Kumo-
 | Measure | Result |
 |---|---:|
 | Provider | `local-extractive-v1` |
-| Observed p95 latency | `0.1629 ms` |
+| Observed p95 latency | `0.1136 ms` |
 | Workload | `3 prompts x 5 repetitions` |
 | Measured calls | `15` |
 | Observed tokens | `640` |
@@ -90,4 +90,4 @@ python -m unittest discover -s tests -v
 ./tools/validate-project.ps1
 ```
 
-The raw result is `benchmarks/results/cost-aware-baseline.json`. Publication adds `benchmarks/publication/cost-aware-baseline-v2.json`, binding the measurement to the clean source commit, exact Docker image, committed data, benchmark config, and validation lock.
+The raw result is `benchmarks/results/cost-aware-baseline.json`. Published evidence is `benchmarks/publication/cost-aware-baseline-v2.json`, binding the measurement to the clean source commit, exact Docker image, committed data, benchmark config, and validation lock.

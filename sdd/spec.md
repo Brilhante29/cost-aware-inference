@@ -14,7 +14,7 @@ Execute real provider work, record observed latency and token usage per request,
 - Runtime observations and pricing assumptions occupy separate result fields.
 - The result satisfies the shared benchmark fields and includes per-provider samples.
 - Docker runs the same local benchmark as a non-root user.
-- Project status remains `benchmarked` until publication and remote CI are verified.
+- Project status becomes `published` only after provenance-bound V2 evidence is generated from a green remote source commit.
 
 ## Non-Goals
 

@@ -24,6 +24,6 @@
 
 ## Publication
 
-- [ ] Push the commit and observe GitHub Actions on its remote SHA.
-- [ ] Record publication evidence before changing `status` from `benchmarked`.
-- [ ] Run a real HTTP provider comparison only with user-supplied environment configuration.
+- [x] Push source commit `a5b7e53b9992250771e4c8be7f8a616b8ef41bda`; verify green CI run `31339203270`.
+- [x] Record Docker-derived V2 publication evidence before changing status to `published`.
+- [x] Keep real HTTP comparison opt-in and refuse a winner claim without an executed same-run comparison.

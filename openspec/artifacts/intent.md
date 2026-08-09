@@ -26,12 +26,12 @@ Inference decisions are unreliable when teams compare declared latencies and pri
 
 ## Default Demo Path
 
-- Status: benchmarked
+- Status: published
 - Runtime: Python CLI or Docker
 - Benchmark command: `python -m cost_aware_inference benchmark --providers local --repeat 5 --output benchmarks/results/cost-aware-baseline.json`
 
 ## Public Proof
 
-- `observed_p95_latency_ms = 0.1629 ms`
+- `observed_p95_latency_ms = 0.1136 ms`
 - 15 local calls and 640 observed tokens.
-- Result: `benchmarks/results/cost-aware-baseline.json`.
+- Result: `benchmarks/publication/cost-aware-baseline-v2.json`.

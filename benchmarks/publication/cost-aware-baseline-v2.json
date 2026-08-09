@@ -1,0 +1,74 @@
+{
+  "benchmark_id": "offline-local-cost-accounting-v1",
+  "comparability_key": "cost-aware:local-extractive-v1:p95-latency:3-requests-x5",
+  "environment": {
+    "architecture": "amd64",
+    "hardware_class": "docker-local",
+    "runtime": "python-3.12.13-slim"
+  },
+  "execution": {
+    "command": "docker run --name pub_cost_aware_inference --network none cost-aware-inference:publication",
+    "duration_seconds": 0.983666,
+    "exit_code": 0,
+    "repeat": 5,
+    "started_at": "2026-08-09T22:23:46.191666Z"
+  },
+  "metrics": [
+    {
+      "direction": "lower_is_better",
+      "failures": 0,
+      "name": "observed_p95_latency_ms",
+      "samples": [
+        0.113595,
+        0.049639,
+        0.041312,
+        0.067333,
+        0.042464,
+        0.037925,
+        0.039307,
+        0.039068,
+        0.036793,
+        0.038777,
+        0.038907,
+        0.036682,
+        0.038235,
+        0.038446,
+        0.035971
+      ],
+      "summary": {
+        "comparison_available": false,
+        "estimated_cost_usd": 0.0,
+        "mean_latency_ms": 0.046297,
+        "measured_iterations": 15,
+        "p50_latency_ms": 0.038907,
+        "p95_latency_ms": 0.113595,
+        "provider_count": 1,
+        "request_count": 15,
+        "total_input_tokens": 465,
+        "total_output_tokens": 175
+      },
+      "unit": "ms",
+      "value": 0.113595
+    }
+  ],
+  "project": "cost-aware-inference",
+  "provenance": {
+    "artifact_digest": "sha256:fca825a9ffb908350a86004e1fe6ad962a36c740129980d9511e5dc091aab75c",
+    "clean_tree": true,
+    "dependency_lock_digest": "sha256:5150977019231f9bac14f520a2533245120f78b7b0c1ac107a034329f9f40eba",
+    "image_digest": "sha256:05ac538158ae840c54fbc21b71f77826712e75ac5a2560bb6f04fc0256ba00f1",
+    "image_ref": "cost-aware-inference:publication@sha256:05ac538158ae840c54fbc21b71f77826712e75ac5a2560bb6f04fc0256ba00f1",
+    "producer": "local",
+    "source_commit": "a5b7e53b9992250771e4c8be7f8a616b8ef41bda"
+  },
+  "run_id": "f3f60339-f9a1-460c-b9db-fbdaa679db57",
+  "schema_version": 2,
+  "workload": {
+    "concurrency": 1,
+    "config_digest": "sha256:81d6d9c947cbf606c304e673ce2c377023b232bdf9c879ad376104c53b36f055",
+    "fixture_digest": "sha256:9b7cf0851ca5eca8293a2f20c243be0785e24b33ea893c3b20088dabb4f36eef",
+    "measured_iterations": 15,
+    "version": "local-extractive-requests-v1",
+    "warmup_iterations": 0
+  }
+}
