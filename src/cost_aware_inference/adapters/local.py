@@ -24,6 +24,11 @@ class LocalExtractiveProvider:
     provider_id = "local-extractive-v1"
     mode = "local"
     implementation = "deterministic-frequency-weighted-extractive-baseline"
+    metadata = {
+        "model": "none",
+        "model_digest": "not-applicable",
+        "runtime": "in-process-python",
+    }
 
     def infer(self, request: InferenceRequest) -> InferenceResponse:
         sentences = [

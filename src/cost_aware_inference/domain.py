@@ -26,6 +26,8 @@ class InferenceResponse:
     output_tokens: int
 
     def __post_init__(self) -> None:
+        if not self.text.strip():
+            raise ValueError("inference response text must not be blank")
         if self.input_tokens <= 0:
             raise ValueError("input_tokens must be positive")
         if self.output_tokens < 0:

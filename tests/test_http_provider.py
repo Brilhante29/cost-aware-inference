@@ -46,6 +46,8 @@ class HttpProviderTests(unittest.TestCase):
         environment = {
             "CAI_HTTP_BASE_URL": "http://localhost:11434/v1",
             "CAI_HTTP_MODEL": "local-model",
+            "CAI_HTTP_MODEL_DIGEST": "sha256:model",
+            "CAI_HTTP_ENDPOINT_KIND": "local-ollama",
             "CAI_HTTP_TIMEOUT_SECONDS": "4",
         }
         provider = OpenAICompatibleProvider.from_environment(
@@ -56,6 +58,8 @@ class HttpProviderTests(unittest.TestCase):
 
         self.assertEqual(response.input_tokens, 7)
         self.assertEqual(response.output_tokens, 2)
+        self.assertEqual(provider.metadata["model_digest"], "sha256:model")
+        self.assertEqual(provider.metadata["runtime"], "local-ollama")
         request, timeout = opener.calls[0]
         self.assertEqual(request.full_url, "http://localhost:11434/v1/chat/completions")
         self.assertEqual(timeout, 4.0)

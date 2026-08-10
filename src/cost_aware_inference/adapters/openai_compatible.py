@@ -28,6 +28,8 @@ class OpenAICompatibleProvider:
         model: str,
         timeout_seconds: float,
         api_key: str | None,
+        model_digest: str,
+        endpoint_kind: str,
         opener: OpenUrl = _open,
     ) -> None:
         parsed = urlsplit(base_url)
@@ -42,6 +44,11 @@ class OpenAICompatibleProvider:
         self.model = model
         self.timeout_seconds = timeout_seconds
         self.api_key = api_key
+        self.metadata = {
+            "model": model,
+            "model_digest": model_digest,
+            "runtime": endpoint_kind,
+        }
         self._opener = opener
 
     @classmethod
@@ -64,6 +71,8 @@ class OpenAICompatibleProvider:
             model=values["CAI_HTTP_MODEL"],
             timeout_seconds=float(values.get("CAI_HTTP_TIMEOUT_SECONDS", "30")),
             api_key=values.get("CAI_HTTP_API_KEY") or None,
+            model_digest=values.get("CAI_HTTP_MODEL_DIGEST", "unverified"),
+            endpoint_kind=values.get("CAI_HTTP_ENDPOINT_KIND", "openai-compatible-http"),
             opener=opener,
         )
 

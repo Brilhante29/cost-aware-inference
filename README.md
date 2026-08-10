@@ -1,26 +1,25 @@
 # #30 cost-aware-inference
 
-**Measured baseline:** `0.1136 ms` observed p95 across `15` local calls and `640` observed tokens. The `US$ 0.00` token charge is a pricing assumption, not zero infrastructure cost.
+**Publication workload:** pinned `qwen2.5-coder:0.5b` over local Ollama HTTP versus the explicitly non-LLM in-process reference, with `60` measured calls after warm-up. Exact p95 comes only from the committed V2 execution.
 
-**Claim:** A local-first benchmark that executes provider work, records latency and token usage, and applies explicit pricing assumptions through provider-neutral ports.
+**Claim:** A local-first benchmark that compares a real, digest-pinned LLM behind an OpenAI-compatible API with a deterministic non-LLM reference, recording latency, usage, failures, and explicit pricing assumptions.
 
 ## What It Proves
 
-The default path runs deterministic extractive text processing, records every call, and hashes outputs. The local adapter is **not an LLM**. It exists as a credential-free reference workload for the cost and measurement contract.
+The publication path runs a real local model through Ollama. The deterministic adapter remains **not an LLM** and exists only as a low-overhead reference for the same measurement contract.
 
-An OpenAI-compatible adapter can execute the same requests against Ollama, Kumo-backed local services, or a configured cloud endpoint. No external provider is called in the committed baseline, so this repository does not publish a fabricated local-versus-API winner.
+The same HTTP port can target Ollama, a Kumo-backed local service, or a configured cloud endpoint. This publication compares local Ollama HTTP with the in-process reference; it does not claim cloud pricing or cloud latency.
 
 ## Benchmark Evidence
 
 | Measure | Result |
 |---|---:|
-| Provider | `local-extractive-v1` |
-| Observed p95 latency | `0.1136 ms` |
-| Workload | `3 prompts x 5 repetitions` |
-| Measured calls | `15` |
-| Observed tokens | `640` |
+| Primary provider | `ollama-qwen2.5-coder-0.5b` |
+| Model digest | `sha256:4ff64a7f...3fb09` |
+| Workload | `3 prompts x 10 repetitions x 2 providers` |
+| Measured calls | `60` |
 | Estimated token charge | `US$ 0.00` |
-| Provider comparison | `not available` |
+| Warm-up | `1 call per provider`, excluded |
 
 Latency is host-specific. The local pricing scope excludes hardware, electricity, and operations. Rerun on the target host before making a deployment decision.
 
@@ -28,7 +27,7 @@ Latency is host-specific. The local pricing scope excludes hardware, electricity
 
 ```powershell
 $env:PYTHONPATH = "src"
-python -m cost_aware_inference benchmark --providers local --repeat 5 --output benchmarks/results/cost-aware-baseline.json
+python -m cost_aware_inference benchmark --providers local --repeat 5 --output benchmarks/results/local-reference.json
 python tools/validate-benchmark.py benchmarks/results/cost-aware-baseline.json
 ```
 
@@ -39,18 +38,20 @@ docker run --rm --network none cost-aware-inference
 
 The image is version-and-digest pinned, runs as UID `10001`, and needs no network or credentials on its default path.
 
-## Real Provider Comparison
+## Real Local LLM Comparison
 
 Configure a real OpenAI-compatible endpoint only through environment variables:
 
 ```powershell
 $env:CAI_HTTP_BASE_URL = "http://localhost:11434/v1"
-$env:CAI_HTTP_MODEL = "your-model"
-$env:CAI_HTTP_PROVIDER_ID = "local-openai-compatible"
+$env:CAI_HTTP_MODEL = "qwen2.5-coder:0.5b"
+$env:CAI_HTTP_MODEL_DIGEST = "sha256:4ff64a7f502a08b7616edb8ca0a79eb1853fc363d842b7df4b46915d11a3fb09"
+$env:CAI_HTTP_PROVIDER_ID = "ollama-qwen2.5-coder-0.5b"
+$env:CAI_HTTP_ENDPOINT_KIND = "local-ollama"
 $env:CAI_HTTP_INPUT_PRICE_PER_1M_USD = "0"
 $env:CAI_HTTP_OUTPUT_PRICE_PER_1M_USD = "0"
 $env:CAI_HTTP_PRICE_SOURCE = "local endpoint; no token tariff"
-python -m cost_aware_inference benchmark --providers local,http --repeat 5 --output benchmarks/results/comparison.json
+python -m cost_aware_inference benchmark --providers http,local --repeat 10 --warmup 1 --output benchmarks/results/comparison.json
 ```
 
 Set `CAI_HTTP_API_KEY` only when the endpoint requires it. The adapter has no URL, model, tariff, or secret fallback. Tests inject transport and never open a network connection.
@@ -65,7 +66,8 @@ Set `CAI_HTTP_API_KEY` only when the endpoint requires it. The adapter has no UR
 | `estimated_cost_usd` | Observed token counts multiplied by the pricing assumption. |
 | `output_sha256` | Output identity without publishing response content. |
 | `repeat` | Workload repetitions per input request. |
-| `measured_iterations` | Calls measured for the primary provider. |
+| `measured_iterations` | Calls measured across every provider. |
+| `failure_count` | Provider errors retained as evidence; publication requires zero. |
 
 ## Architecture
 

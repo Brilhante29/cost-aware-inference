@@ -1,13 +1,18 @@
 {
   "schema_version": 1,
-  "benchmark_id": "offline-local-cost-accounting-v1",
-  "workload_version": "local-extractive-requests-v1",
+  "benchmark_id": "local-llm-api-vs-extractive-v2",
+  "workload_version": "qwen2.5-coder-0.5b-v1",
   "requests": "data/fixtures/requests.jsonl",
   "pricing": "data/pricing/providers.json",
-  "provider_aliases": ["local"],
-  "measured_requests": 3,
-  "repeat": 5,
-  "measured_iterations": 15,
+  "provider_aliases": ["http", "local"],
+  "primary_provider": "ollama-qwen2.5-coder-0.5b",
+  "model": "qwen2.5-coder:0.5b",
+  "model_digest": "sha256:4ff64a7f502a08b7616edb8ca0a79eb1853fc363d842b7df4b46915d11a3fb09",
+  "measured_requests_per_provider": 30,
+  "repeat": 10,
+  "warmup_iterations_per_provider": 1,
+  "warmup_iterations": 2,
+  "measured_iterations": 60,
   "concurrency": 1,
-  "comparability_key": "cost-aware:local-extractive-v1:p95-latency:3-requests-x5"
+  "comparability_key": "cost-aware:qwen2.5-coder-0.5b-vs-extractive:p95:3-requests-x10"
 }

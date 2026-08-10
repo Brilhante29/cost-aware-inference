@@ -16,6 +16,7 @@ def _parser() -> argparse.ArgumentParser:
     parser.add_argument("command", choices=["benchmark"], nargs="?", default="benchmark")
     parser.add_argument("--providers", default="local")
     parser.add_argument("--repeat", type=int, default=5)
+    parser.add_argument("--warmup", type=int, default=0)
     parser.add_argument("--requests", default="data/fixtures/requests.jsonl")
     parser.add_argument("--pricing", default="data/pricing/providers.json")
     parser.add_argument("--output", default="benchmarks/results/cost-aware-baseline.json")
@@ -44,12 +45,14 @@ def main(argv: list[str] | None = None) -> None:
     command = (
         "python -m cost_aware_inference benchmark "
         f"--providers {args.providers} --repeat {args.repeat} "
+        f"--warmup {args.warmup} "
         f"--requests {args.requests} --pricing {args.pricing} "
         f"--output {args.output}"
     )
     result = BenchmarkRunner(targets).run(
         load_requests(args.requests),
         repeats=args.repeat,
+        warmup_iterations=args.warmup,
         command=command,
     )
     output = Path(args.output)

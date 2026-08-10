@@ -9,7 +9,7 @@ program:
     - portfolio-compatible result JSON
     - per-provider sample contract
 status: published
-claim: Executes a deterministic local inference baseline, measures observed latency and token usage, and estimates cost from separately configured prices; external HTTP comparison is optional.
+claim: Compares a pinned local LLM through an OpenAI-compatible HTTP boundary against an explicitly non-LLM local reference, with observed latency, usage, failures, and pricing assumptions.
 stack:
   - python
   - ports-and-adapters
@@ -61,7 +61,7 @@ reuse:
 benchmark:
   primary_metric: observed_p95_latency_ms
   unit: ms
-  command: python -m cost_aware_inference benchmark --providers local --repeat 5 --output benchmarks/results/cost-aware-baseline.json
+  command: python -m cost_aware_inference benchmark --providers http,local --repeat 10 --warmup 1 --output benchmarks/results/cost-aware-baseline.json
   result_path: benchmarks/publication/cost-aware-baseline-v2.json
 release:
   docker: Dockerfile
