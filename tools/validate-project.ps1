@@ -20,9 +20,21 @@ function Require-File {
 
 function Invoke-Checked {
   param([string]$Label, [scriptblock]$Command)
-  & $Command
-  if ($LASTEXITCODE -ne 0) {
-    Add-Failure "$Label failed with exit code $LASTEXITCODE"
+  $previousErrorActionPreference = $ErrorActionPreference
+  try {
+    # Windows PowerShell 5.1 wraps native stderr as ErrorRecord output.
+    # Let the process finish and use its exit code as the failure signal.
+    $ErrorActionPreference = "Continue"
+    & $Command
+    $exitCode = $LASTEXITCODE
+  } catch {
+    Add-Failure "$Label failed before an exit code was available: $($_.Exception.Message)"
+    return
+  } finally {
+    $ErrorActionPreference = $previousErrorActionPreference
+  }
+  if ($exitCode -ne 0) {
+    Add-Failure "$Label failed with exit code $exitCode"
   }
   $global:LASTEXITCODE = 0
 }
