@@ -1,47 +1,62 @@
 {
   "project": "cost-aware-inference",
   "metric": "observed_p95_latency_ms",
-  "value": 0.1239,
+  "value": 1011.015106,
   "unit": "ms",
-  "timestamp": "2026-08-10T01:00:00Z",
-  "command": "python -m cost_aware_inference benchmark --providers local --repeat 5 --warmup 0 --requests data/fixtures/requests.jsonl --pricing data/pricing/providers.json --output benchmarks/results/cost-aware-baseline.json",
-  "repeat": 5,
-  "measured_iterations": 15,
+  "timestamp": "2026-08-10T01:01:21Z",
+  "command": "python -m cost_aware_inference benchmark --providers http,local --repeat 10 --warmup 1 --requests data/fixtures/requests.jsonl --pricing data/pricing/providers.json --output /app/benchmarks/results/cost-aware-baseline.json",
+  "repeat": 10,
+  "measured_iterations": 60,
   "samples": [
-    0.1239,
-    0.0632,
-    0.0556,
-    0.0576,
-    0.0588,
-    0.0568,
-    0.065,
-    0.0572,
-    0.0525,
-    0.0558,
-    0.0565,
-    0.0524,
-    0.0563,
-    0.0564,
-    0.0531
+    968.503688,
+    1038.351948,
+    1011.015106,
+    798.166915,
+    922.918954,
+    801.073363,
+    799.916223,
+    820.216351,
+    838.2518,
+    877.120378,
+    865.699315,
+    807.805863,
+    843.691788,
+    820.098014,
+    850.098427,
+    810.039556,
+    823.290148,
+    859.085347,
+    811.759473,
+    803.053713,
+    821.7399,
+    873.666723,
+    840.36956,
+    840.111034,
+    855.524772,
+    836.921047,
+    815.185965,
+    819.086757,
+    818.882908,
+    884.714809
   ],
   "summary": {
-    "mean_latency_ms": 0.061407,
-    "p50_latency_ms": 0.0565,
-    "p95_latency_ms": 0.1239,
-    "request_count": 15,
-    "measured_iterations": 15,
-    "provider_count": 1,
-    "comparison_available": false,
-    "warmup_iterations_per_provider": 0,
+    "mean_latency_ms": 852.545328,
+    "p50_latency_ms": 836.921047,
+    "p95_latency_ms": 1011.015106,
+    "request_count": 30,
+    "measured_iterations": 60,
+    "provider_count": 2,
+    "comparison_available": true,
+    "warmup_iterations_per_provider": 1,
     "failure_count": 0,
-    "total_input_tokens": 465,
-    "total_output_tokens": 175,
+    "total_input_tokens": 1820,
+    "total_output_tokens": 840,
     "estimated_cost_usd": 0.0
   },
   "environment": {
-    "python": "3.10.11",
-    "platform": "Windows-10-10.0.26200-SP0",
-    "machine": "AMD64"
+    "python": "3.12.13",
+    "platform": "Linux-6.18.33.2-microsoft-standard-WSL2-x86_64-with-glibc2.41",
+    "machine": "x86_64"
   },
   "claims": {
     "latency": "observed wall-clock duration around each provider call",
@@ -49,8 +64,347 @@
     "cost": "estimate from observed tokens and separately configured prices",
     "local_baseline": "deterministic extractive text processing, not an LLM"
   },
-  "comparison": null,
+  "comparison": {
+    "primary_provider": "ollama-qwen2.5-coder-0.5b",
+    "baseline_provider": "local-extractive-v1",
+    "p95_latency_delta_ms": 1010.77516,
+    "p95_latency_ratio": 4213.510982,
+    "estimated_token_charge_delta_usd": 0.0
+  },
   "providers": [
+    {
+      "provider": "ollama-qwen2.5-coder-0.5b",
+      "mode": "http",
+      "implementation": "openai-compatible-chat-completions",
+      "metadata": {
+        "model": "qwen2.5-coder:0.5b",
+        "model_digest": "sha256:4ff64a7f502a08b7616edb8ca0a79eb1853fc363d842b7df4b46915d11a3fb09",
+        "runtime": "local-ollama"
+      },
+      "warmup_iterations": 1,
+      "failure_count": 0,
+      "measured": {
+        "request_count": 30,
+        "total_input_tokens": 1820,
+        "total_output_tokens": 840,
+        "total_tokens": 2660,
+        "total_duration_ms": 25576.359845,
+        "mean_latency_ms": 852.545328,
+        "p50_latency_ms": 836.921047,
+        "p95_latency_ms": 1011.015106,
+        "throughput_tokens_per_second": 104.002
+      },
+      "pricing_assumption": {
+        "currency": "USD",
+        "input_per_million_tokens_usd": 0.0,
+        "output_per_million_tokens_usd": 0.0,
+        "source": "local-Ollama-token-tariff-zero",
+        "scope": "Configured API token charges only; excludes network and host costs."
+      },
+      "estimated_cost_usd": 0.0,
+      "samples": [
+        {
+          "request_id": "r1",
+          "attempt": 1,
+          "observed_latency_ms": 968.503688,
+          "success": true,
+          "input_tokens": 61,
+          "output_tokens": 28,
+          "total_tokens": 89,
+          "output_sha256": "cc634dcfd7a2eeb8418e72e0027fea574423fa03f03920e1c84db80901e46dcb"
+        },
+        {
+          "request_id": "r2",
+          "attempt": 1,
+          "observed_latency_ms": 1038.351948,
+          "success": true,
+          "input_tokens": 62,
+          "output_tokens": 28,
+          "total_tokens": 90,
+          "output_sha256": "f96805d618e4ef5ef8f98ad23f0f0656c058cc82f9352c6f6587f4d4a57bd32d"
+        },
+        {
+          "request_id": "r3",
+          "attempt": 1,
+          "observed_latency_ms": 1011.015106,
+          "success": true,
+          "input_tokens": 59,
+          "output_tokens": 28,
+          "total_tokens": 87,
+          "output_sha256": "0661017ab8092c3272febe87cd6e42f0911c26b2fbe6d97fcaab559607d699d9"
+        },
+        {
+          "request_id": "r1",
+          "attempt": 2,
+          "observed_latency_ms": 798.166915,
+          "success": true,
+          "input_tokens": 61,
+          "output_tokens": 28,
+          "total_tokens": 89,
+          "output_sha256": "cc634dcfd7a2eeb8418e72e0027fea574423fa03f03920e1c84db80901e46dcb"
+        },
+        {
+          "request_id": "r2",
+          "attempt": 2,
+          "observed_latency_ms": 922.918954,
+          "success": true,
+          "input_tokens": 62,
+          "output_tokens": 28,
+          "total_tokens": 90,
+          "output_sha256": "f96805d618e4ef5ef8f98ad23f0f0656c058cc82f9352c6f6587f4d4a57bd32d"
+        },
+        {
+          "request_id": "r3",
+          "attempt": 2,
+          "observed_latency_ms": 801.073363,
+          "success": true,
+          "input_tokens": 59,
+          "output_tokens": 28,
+          "total_tokens": 87,
+          "output_sha256": "0661017ab8092c3272febe87cd6e42f0911c26b2fbe6d97fcaab559607d699d9"
+        },
+        {
+          "request_id": "r1",
+          "attempt": 3,
+          "observed_latency_ms": 799.916223,
+          "success": true,
+          "input_tokens": 61,
+          "output_tokens": 28,
+          "total_tokens": 89,
+          "output_sha256": "cc634dcfd7a2eeb8418e72e0027fea574423fa03f03920e1c84db80901e46dcb"
+        },
+        {
+          "request_id": "r2",
+          "attempt": 3,
+          "observed_latency_ms": 820.216351,
+          "success": true,
+          "input_tokens": 62,
+          "output_tokens": 28,
+          "total_tokens": 90,
+          "output_sha256": "f96805d618e4ef5ef8f98ad23f0f0656c058cc82f9352c6f6587f4d4a57bd32d"
+        },
+        {
+          "request_id": "r3",
+          "attempt": 3,
+          "observed_latency_ms": 838.2518,
+          "success": true,
+          "input_tokens": 59,
+          "output_tokens": 28,
+          "total_tokens": 87,
+          "output_sha256": "0661017ab8092c3272febe87cd6e42f0911c26b2fbe6d97fcaab559607d699d9"
+        },
+        {
+          "request_id": "r1",
+          "attempt": 4,
+          "observed_latency_ms": 877.120378,
+          "success": true,
+          "input_tokens": 61,
+          "output_tokens": 28,
+          "total_tokens": 89,
+          "output_sha256": "cc634dcfd7a2eeb8418e72e0027fea574423fa03f03920e1c84db80901e46dcb"
+        },
+        {
+          "request_id": "r2",
+          "attempt": 4,
+          "observed_latency_ms": 865.699315,
+          "success": true,
+          "input_tokens": 62,
+          "output_tokens": 28,
+          "total_tokens": 90,
+          "output_sha256": "f96805d618e4ef5ef8f98ad23f0f0656c058cc82f9352c6f6587f4d4a57bd32d"
+        },
+        {
+          "request_id": "r3",
+          "attempt": 4,
+          "observed_latency_ms": 807.805863,
+          "success": true,
+          "input_tokens": 59,
+          "output_tokens": 28,
+          "total_tokens": 87,
+          "output_sha256": "0661017ab8092c3272febe87cd6e42f0911c26b2fbe6d97fcaab559607d699d9"
+        },
+        {
+          "request_id": "r1",
+          "attempt": 5,
+          "observed_latency_ms": 843.691788,
+          "success": true,
+          "input_tokens": 61,
+          "output_tokens": 28,
+          "total_tokens": 89,
+          "output_sha256": "cc634dcfd7a2eeb8418e72e0027fea574423fa03f03920e1c84db80901e46dcb"
+        },
+        {
+          "request_id": "r2",
+          "attempt": 5,
+          "observed_latency_ms": 820.098014,
+          "success": true,
+          "input_tokens": 62,
+          "output_tokens": 28,
+          "total_tokens": 90,
+          "output_sha256": "f96805d618e4ef5ef8f98ad23f0f0656c058cc82f9352c6f6587f4d4a57bd32d"
+        },
+        {
+          "request_id": "r3",
+          "attempt": 5,
+          "observed_latency_ms": 850.098427,
+          "success": true,
+          "input_tokens": 59,
+          "output_tokens": 28,
+          "total_tokens": 87,
+          "output_sha256": "0661017ab8092c3272febe87cd6e42f0911c26b2fbe6d97fcaab559607d699d9"
+        },
+        {
+          "request_id": "r1",
+          "attempt": 6,
+          "observed_latency_ms": 810.039556,
+          "success": true,
+          "input_tokens": 61,
+          "output_tokens": 28,
+          "total_tokens": 89,
+          "output_sha256": "cc634dcfd7a2eeb8418e72e0027fea574423fa03f03920e1c84db80901e46dcb"
+        },
+        {
+          "request_id": "r2",
+          "attempt": 6,
+          "observed_latency_ms": 823.290148,
+          "success": true,
+          "input_tokens": 62,
+          "output_tokens": 28,
+          "total_tokens": 90,
+          "output_sha256": "f96805d618e4ef5ef8f98ad23f0f0656c058cc82f9352c6f6587f4d4a57bd32d"
+        },
+        {
+          "request_id": "r3",
+          "attempt": 6,
+          "observed_latency_ms": 859.085347,
+          "success": true,
+          "input_tokens": 59,
+          "output_tokens": 28,
+          "total_tokens": 87,
+          "output_sha256": "0661017ab8092c3272febe87cd6e42f0911c26b2fbe6d97fcaab559607d699d9"
+        },
+        {
+          "request_id": "r1",
+          "attempt": 7,
+          "observed_latency_ms": 811.759473,
+          "success": true,
+          "input_tokens": 61,
+          "output_tokens": 28,
+          "total_tokens": 89,
+          "output_sha256": "cc634dcfd7a2eeb8418e72e0027fea574423fa03f03920e1c84db80901e46dcb"
+        },
+        {
+          "request_id": "r2",
+          "attempt": 7,
+          "observed_latency_ms": 803.053713,
+          "success": true,
+          "input_tokens": 62,
+          "output_tokens": 28,
+          "total_tokens": 90,
+          "output_sha256": "f96805d618e4ef5ef8f98ad23f0f0656c058cc82f9352c6f6587f4d4a57bd32d"
+        },
+        {
+          "request_id": "r3",
+          "attempt": 7,
+          "observed_latency_ms": 821.7399,
+          "success": true,
+          "input_tokens": 59,
+          "output_tokens": 28,
+          "total_tokens": 87,
+          "output_sha256": "0661017ab8092c3272febe87cd6e42f0911c26b2fbe6d97fcaab559607d699d9"
+        },
+        {
+          "request_id": "r1",
+          "attempt": 8,
+          "observed_latency_ms": 873.666723,
+          "success": true,
+          "input_tokens": 61,
+          "output_tokens": 28,
+          "total_tokens": 89,
+          "output_sha256": "cc634dcfd7a2eeb8418e72e0027fea574423fa03f03920e1c84db80901e46dcb"
+        },
+        {
+          "request_id": "r2",
+          "attempt": 8,
+          "observed_latency_ms": 840.36956,
+          "success": true,
+          "input_tokens": 62,
+          "output_tokens": 28,
+          "total_tokens": 90,
+          "output_sha256": "f96805d618e4ef5ef8f98ad23f0f0656c058cc82f9352c6f6587f4d4a57bd32d"
+        },
+        {
+          "request_id": "r3",
+          "attempt": 8,
+          "observed_latency_ms": 840.111034,
+          "success": true,
+          "input_tokens": 59,
+          "output_tokens": 28,
+          "total_tokens": 87,
+          "output_sha256": "0661017ab8092c3272febe87cd6e42f0911c26b2fbe6d97fcaab559607d699d9"
+        },
+        {
+          "request_id": "r1",
+          "attempt": 9,
+          "observed_latency_ms": 855.524772,
+          "success": true,
+          "input_tokens": 61,
+          "output_tokens": 28,
+          "total_tokens": 89,
+          "output_sha256": "cc634dcfd7a2eeb8418e72e0027fea574423fa03f03920e1c84db80901e46dcb"
+        },
+        {
+          "request_id": "r2",
+          "attempt": 9,
+          "observed_latency_ms": 836.921047,
+          "success": true,
+          "input_tokens": 62,
+          "output_tokens": 28,
+          "total_tokens": 90,
+          "output_sha256": "f96805d618e4ef5ef8f98ad23f0f0656c058cc82f9352c6f6587f4d4a57bd32d"
+        },
+        {
+          "request_id": "r3",
+          "attempt": 9,
+          "observed_latency_ms": 815.185965,
+          "success": true,
+          "input_tokens": 59,
+          "output_tokens": 28,
+          "total_tokens": 87,
+          "output_sha256": "0661017ab8092c3272febe87cd6e42f0911c26b2fbe6d97fcaab559607d699d9"
+        },
+        {
+          "request_id": "r1",
+          "attempt": 10,
+          "observed_latency_ms": 819.086757,
+          "success": true,
+          "input_tokens": 61,
+          "output_tokens": 28,
+          "total_tokens": 89,
+          "output_sha256": "cc634dcfd7a2eeb8418e72e0027fea574423fa03f03920e1c84db80901e46dcb"
+        },
+        {
+          "request_id": "r2",
+          "attempt": 10,
+          "observed_latency_ms": 818.882908,
+          "success": true,
+          "input_tokens": 62,
+          "output_tokens": 28,
+          "total_tokens": 90,
+          "output_sha256": "f96805d618e4ef5ef8f98ad23f0f0656c058cc82f9352c6f6587f4d4a57bd32d"
+        },
+        {
+          "request_id": "r3",
+          "attempt": 10,
+          "observed_latency_ms": 884.714809,
+          "success": true,
+          "input_tokens": 59,
+          "output_tokens": 28,
+          "total_tokens": 87,
+          "output_sha256": "0661017ab8092c3272febe87cd6e42f0911c26b2fbe6d97fcaab559607d699d9"
+        }
+      ]
+    },
     {
       "provider": "local-extractive-v1",
       "mode": "local",
@@ -60,18 +414,18 @@
         "model_digest": "not-applicable",
         "runtime": "in-process-python"
       },
-      "warmup_iterations": 0,
+      "warmup_iterations": 1,
       "failure_count": 0,
       "measured": {
-        "request_count": 15,
-        "total_input_tokens": 465,
-        "total_output_tokens": 175,
-        "total_tokens": 640,
-        "total_duration_ms": 0.9211,
-        "mean_latency_ms": 0.061407,
-        "p50_latency_ms": 0.0565,
-        "p95_latency_ms": 0.1239,
-        "throughput_tokens_per_second": 694821.409
+        "request_count": 30,
+        "total_input_tokens": 930,
+        "total_output_tokens": 350,
+        "total_tokens": 1280,
+        "total_duration_ms": 3.309098,
+        "mean_latency_ms": 0.110303,
+        "p50_latency_ms": 0.083846,
+        "p95_latency_ms": 0.239946,
+        "throughput_tokens_per_second": 386812.358
       },
       "pricing_assumption": {
         "currency": "USD",
@@ -85,7 +439,7 @@
         {
           "request_id": "r1",
           "attempt": 1,
-          "observed_latency_ms": 0.1239,
+          "observed_latency_ms": 0.079968,
           "success": true,
           "input_tokens": 31,
           "output_tokens": 13,
@@ -95,7 +449,7 @@
         {
           "request_id": "r2",
           "attempt": 1,
-          "observed_latency_ms": 0.0632,
+          "observed_latency_ms": 0.148784,
           "success": true,
           "input_tokens": 33,
           "output_tokens": 11,
@@ -105,7 +459,7 @@
         {
           "request_id": "r3",
           "attempt": 1,
-          "observed_latency_ms": 0.0556,
+          "observed_latency_ms": 0.094017,
           "success": true,
           "input_tokens": 29,
           "output_tokens": 11,
@@ -115,7 +469,7 @@
         {
           "request_id": "r1",
           "attempt": 2,
-          "observed_latency_ms": 0.0576,
+          "observed_latency_ms": 0.082624,
           "success": true,
           "input_tokens": 31,
           "output_tokens": 13,
@@ -125,7 +479,7 @@
         {
           "request_id": "r2",
           "attempt": 2,
-          "observed_latency_ms": 0.0588,
+          "observed_latency_ms": 0.083445,
           "success": true,
           "input_tokens": 33,
           "output_tokens": 11,
@@ -135,7 +489,7 @@
         {
           "request_id": "r3",
           "attempt": 2,
-          "observed_latency_ms": 0.0568,
+          "observed_latency_ms": 0.074388,
           "success": true,
           "input_tokens": 29,
           "output_tokens": 11,
@@ -145,7 +499,7 @@
         {
           "request_id": "r1",
           "attempt": 3,
-          "observed_latency_ms": 0.065,
+          "observed_latency_ms": 0.079637,
           "success": true,
           "input_tokens": 31,
           "output_tokens": 13,
@@ -155,7 +509,7 @@
         {
           "request_id": "r2",
           "attempt": 3,
-          "observed_latency_ms": 0.0572,
+          "observed_latency_ms": 0.086721,
           "success": true,
           "input_tokens": 33,
           "output_tokens": 11,
@@ -165,7 +519,7 @@
         {
           "request_id": "r3",
           "attempt": 3,
-          "observed_latency_ms": 0.0525,
+          "observed_latency_ms": 0.080669,
           "success": true,
           "input_tokens": 29,
           "output_tokens": 11,
@@ -175,7 +529,7 @@
         {
           "request_id": "r1",
           "attempt": 4,
-          "observed_latency_ms": 0.0558,
+          "observed_latency_ms": 0.152642,
           "success": true,
           "input_tokens": 31,
           "output_tokens": 13,
@@ -185,7 +539,7 @@
         {
           "request_id": "r2",
           "attempt": 4,
-          "observed_latency_ms": 0.0565,
+          "observed_latency_ms": 0.106631,
           "success": true,
           "input_tokens": 33,
           "output_tokens": 11,
@@ -195,7 +549,7 @@
         {
           "request_id": "r3",
           "attempt": 4,
-          "observed_latency_ms": 0.0524,
+          "observed_latency_ms": 0.079918,
           "success": true,
           "input_tokens": 29,
           "output_tokens": 11,
@@ -205,7 +559,7 @@
         {
           "request_id": "r1",
           "attempt": 5,
-          "observed_latency_ms": 0.0563,
+          "observed_latency_ms": 0.158353,
           "success": true,
           "input_tokens": 31,
           "output_tokens": 13,
@@ -215,7 +569,7 @@
         {
           "request_id": "r2",
           "attempt": 5,
-          "observed_latency_ms": 0.0564,
+          "observed_latency_ms": 0.082644,
           "success": true,
           "input_tokens": 33,
           "output_tokens": 11,
@@ -225,7 +579,157 @@
         {
           "request_id": "r3",
           "attempt": 5,
-          "observed_latency_ms": 0.0531,
+          "observed_latency_ms": 0.082865,
+          "success": true,
+          "input_tokens": 29,
+          "output_tokens": 11,
+          "total_tokens": 40,
+          "output_sha256": "da5c657528aa6015baf7f4549502e6b6e2fb422be483c9ad222311854b10a4a5"
+        },
+        {
+          "request_id": "r1",
+          "attempt": 6,
+          "observed_latency_ms": 0.239946,
+          "success": true,
+          "input_tokens": 31,
+          "output_tokens": 13,
+          "total_tokens": 44,
+          "output_sha256": "6ddb11477bfebde99b69a7ab4f00429223943dda64aaec6b4ab8a5efbd193cd9"
+        },
+        {
+          "request_id": "r2",
+          "attempt": 6,
+          "observed_latency_ms": 0.098265,
+          "success": true,
+          "input_tokens": 33,
+          "output_tokens": 11,
+          "total_tokens": 44,
+          "output_sha256": "9bd63df2a560815ae018120c368ba4d29b396fa5cfa3a87d5fc8e4eedc1e6131"
+        },
+        {
+          "request_id": "r3",
+          "attempt": 6,
+          "observed_latency_ms": 0.243212,
+          "success": true,
+          "input_tokens": 29,
+          "output_tokens": 11,
+          "total_tokens": 40,
+          "output_sha256": "da5c657528aa6015baf7f4549502e6b6e2fb422be483c9ad222311854b10a4a5"
+        },
+        {
+          "request_id": "r1",
+          "attempt": 7,
+          "observed_latency_ms": 0.083846,
+          "success": true,
+          "input_tokens": 31,
+          "output_tokens": 13,
+          "total_tokens": 44,
+          "output_sha256": "6ddb11477bfebde99b69a7ab4f00429223943dda64aaec6b4ab8a5efbd193cd9"
+        },
+        {
+          "request_id": "r2",
+          "attempt": 7,
+          "observed_latency_ms": 0.081602,
+          "success": true,
+          "input_tokens": 33,
+          "output_tokens": 11,
+          "total_tokens": 44,
+          "output_sha256": "9bd63df2a560815ae018120c368ba4d29b396fa5cfa3a87d5fc8e4eedc1e6131"
+        },
+        {
+          "request_id": "r3",
+          "attempt": 7,
+          "observed_latency_ms": 0.180659,
+          "success": true,
+          "input_tokens": 29,
+          "output_tokens": 11,
+          "total_tokens": 40,
+          "output_sha256": "da5c657528aa6015baf7f4549502e6b6e2fb422be483c9ad222311854b10a4a5"
+        },
+        {
+          "request_id": "r1",
+          "attempt": 8,
+          "observed_latency_ms": 0.081452,
+          "success": true,
+          "input_tokens": 31,
+          "output_tokens": 13,
+          "total_tokens": 44,
+          "output_sha256": "6ddb11477bfebde99b69a7ab4f00429223943dda64aaec6b4ab8a5efbd193cd9"
+        },
+        {
+          "request_id": "r2",
+          "attempt": 8,
+          "observed_latency_ms": 0.126301,
+          "success": true,
+          "input_tokens": 33,
+          "output_tokens": 11,
+          "total_tokens": 44,
+          "output_sha256": "9bd63df2a560815ae018120c368ba4d29b396fa5cfa3a87d5fc8e4eedc1e6131"
+        },
+        {
+          "request_id": "r3",
+          "attempt": 8,
+          "observed_latency_ms": 0.078165,
+          "success": true,
+          "input_tokens": 29,
+          "output_tokens": 11,
+          "total_tokens": 40,
+          "output_sha256": "da5c657528aa6015baf7f4549502e6b6e2fb422be483c9ad222311854b10a4a5"
+        },
+        {
+          "request_id": "r1",
+          "attempt": 9,
+          "observed_latency_ms": 0.17164,
+          "success": true,
+          "input_tokens": 31,
+          "output_tokens": 13,
+          "total_tokens": 44,
+          "output_sha256": "6ddb11477bfebde99b69a7ab4f00429223943dda64aaec6b4ab8a5efbd193cd9"
+        },
+        {
+          "request_id": "r2",
+          "attempt": 9,
+          "observed_latency_ms": 0.101712,
+          "success": true,
+          "input_tokens": 33,
+          "output_tokens": 11,
+          "total_tokens": 44,
+          "output_sha256": "9bd63df2a560815ae018120c368ba4d29b396fa5cfa3a87d5fc8e4eedc1e6131"
+        },
+        {
+          "request_id": "r3",
+          "attempt": 9,
+          "observed_latency_ms": 0.076582,
+          "success": true,
+          "input_tokens": 29,
+          "output_tokens": 11,
+          "total_tokens": 40,
+          "output_sha256": "da5c657528aa6015baf7f4549502e6b6e2fb422be483c9ad222311854b10a4a5"
+        },
+        {
+          "request_id": "r1",
+          "attempt": 10,
+          "observed_latency_ms": 0.083626,
+          "success": true,
+          "input_tokens": 31,
+          "output_tokens": 13,
+          "total_tokens": 44,
+          "output_sha256": "6ddb11477bfebde99b69a7ab4f00429223943dda64aaec6b4ab8a5efbd193cd9"
+        },
+        {
+          "request_id": "r2",
+          "attempt": 10,
+          "observed_latency_ms": 0.09596,
+          "success": true,
+          "input_tokens": 33,
+          "output_tokens": 11,
+          "total_tokens": 44,
+          "output_sha256": "9bd63df2a560815ae018120c368ba4d29b396fa5cfa3a87d5fc8e4eedc1e6131"
+        },
+        {
+          "request_id": "r3",
+          "attempt": 10,
+          "observed_latency_ms": 0.092824,
           "success": true,
           "input_tokens": 29,
           "output_tokens": 11,

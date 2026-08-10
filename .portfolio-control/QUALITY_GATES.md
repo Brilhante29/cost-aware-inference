@@ -2,15 +2,17 @@
 
 Completion requires evidence, not intent.
 
-- [ ] README opens with `#30 <name>` and reports the current benchmark number.
-- [ ] `project.yaml` names the problem, architecture, stack, primary metric, and result path.
-- [ ] SDD and OpenSpec artifacts agree with the implementation.
-- [ ] Domain logic is isolated from transport, persistence, broker, provider, and vendor details.
-- [ ] SOLID, DRY, KISS, YAGNI, and Law of Demeter review has no unexplained exception.
-- [ ] Tests cover the contract and the failure paths that affect the claim.
-- [ ] Docker runs the documented default path from a clean checkout.
-- [ ] CI runs the same meaningful checks without mutable dependencies or secrets.
-- [ ] Benchmark writes valid JSON under `benchmarks/results/` and can be repeated.
-- [ ] README, benchmark JSON, and `project.yaml` report the same primary metric.
-- [ ] Reuse review records every kit improvement, backlog item, or rejected duplication.
-- [ ] Independent review found no blocker and publication has not happened before this gate.
+- [x] README opens with `#30 cost-aware-inference` and the measured p95.
+- [x] `project.yaml` records architecture, providers, metric, and V2 result.
+- [x] SDD and OpenSpec agree with the measured local comparison.
+- [x] Application code depends on `InferenceProvider`, not HTTP infrastructure.
+- [x] SOLID, KISS, YAGNI, and coupling boundaries are explicit.
+- [x] Eight tests cover orchestration, interleaving, metadata, HTTP, and local inference.
+- [x] Docker executes as an unprivileged user from a pinned base.
+- [x] Provider configuration is environment-only and secrets are never serialized.
+- [x] V1 and V2 bind 60 calls, model digest, image, data, config, and lock.
+- [x] README, raw result, V2, and manifest report the same primary metric.
+- [x] Reuse findings are promoted or recorded.
+- [x] Independent audit blockers were addressed before default-branch publication.
+
+Each new release still requires central exact-head GitHub Actions evidence.

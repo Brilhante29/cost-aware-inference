@@ -1,4 +1,4 @@
-# Reuse Map: #<id> <project-name>
+# Reuse Map: #30 cost-aware-inference
 
 ## Kit Inputs
 
@@ -18,7 +18,9 @@ List only what this project adds to the kit. If a pattern will be useful in anot
 
 | Delta | Why it is project-specific or reusable | Action |
 |---|---|---|
-| _pending_ | _pending_ | `patch_now`, `backlog`, or `reject` |
+| provider evidence envelope | reusable across LLM producers | promote to reuse-kit guidance |
+| interleaved multi-provider measurement | reusable benchmark policy | promote to benchmark skill |
+| model/digest and pricing values | workload-specific | keep local |
 
 ## Coupling Rule
 

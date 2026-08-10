@@ -1,6 +1,6 @@
 # #30 cost-aware-inference
 
-**Publication workload:** pinned `qwen2.5-coder:0.5b` over local Ollama HTTP versus the explicitly non-LLM in-process reference, with `60` measured calls after warm-up. Exact p95 comes only from the committed V2 execution.
+**Measured comparison:** pinned `qwen2.5-coder:0.5b` over local Ollama HTTP reached p95 `1011.015 ms`; the explicitly non-LLM in-process reference reached `0.240 ms` (`4213.51x` latency ratio) across `60` measured calls after warm-up.
 
 **Claim:** A local-first benchmark that compares a real, digest-pinned LLM behind an OpenAI-compatible API with a deterministic non-LLM reference, recording latency, usage, failures, and explicit pricing assumptions.
 
@@ -16,8 +16,13 @@ The same HTTP port can target Ollama, a Kumo-backed local service, or a configur
 |---|---:|
 | Primary provider | `ollama-qwen2.5-coder-0.5b` |
 | Model digest | `sha256:4ff64a7f...3fb09` |
+| LLM observed p95 | `1011.015 ms` |
+| In-process reference p95 | `0.240 ms` |
+| LLM/reference p95 ratio | `4213.51x` |
 | Workload | `3 prompts x 10 repetitions x 2 providers` |
 | Measured calls | `60` |
+| LLM observed tokens | `2660` |
+| Provider failures | `0` |
 | Estimated token charge | `US$ 0.00` |
 | Warm-up | `1 call per provider`, excluded |
 

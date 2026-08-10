@@ -18,6 +18,7 @@ Project: `30 - cost-aware-inference`
 | Git blob, image, fixture, config, lock, and raw-result provenance are stable across all benchmark repositories in this macro. | `patch_now` | `harness`, `skills` | Reuse the generic V2 producer, exact validation lock, and matching Codex/Claude publication skills. | done |
 | Measured usage and estimated monetary cost require separate contracts. | `backlog` | `contracts`, `validation` | Add an optional provider-sample and pricing-assumption contract after macro closure. | recorded |
 | External provider adapters need environment-only configuration and injected offline transport tests. | `backlog` | `skills`, `templates` | Add a no-network adapter testing recipe to the reuse kit after publication. | recorded |
+| Multi-provider latency is biased when providers execute in separate blocks. | `patch_now` | `benchmark skill` | Interleave calls, exclude explicit warm-ups, retain failures, and publish per-provider model metadata. | done |
 | Prompts, provider IDs, tariffs, and benchmark claims are project-specific. | `reject` | `templates` | Keep domain data and exact assertions in this repository. | done |
 
 ## Patch Now Decisions
