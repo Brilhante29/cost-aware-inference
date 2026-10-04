@@ -30,7 +30,7 @@
 | Estimated token charge | `US$ 0.00` |
 | Warm-up | `1 call per provider`, excluded |
 
-How to read it: the in-process reference is **not an LLM**. It is a deterministic adapter that goes through the same measurement contract, so its `0.240 ms` p95 is the floor of harness overhead; the roughly `4213.51x` gap shows the harness adds negligible noise to a real model call. The `US$ 0.00` charge reflects a local endpoint with no token tariff; hardware, electricity, and operations are explicitly out of scope. Latency is host-specific, so rerun on the target host before deciding.
+**How to read it:** the in-process reference is **not an LLM**. It is a deterministic adapter that goes through the same measurement contract, so its `0.240 ms` p95 is the floor of harness overhead; the roughly `4213.51x` gap shows the harness adds negligible noise to a real model call. The `US$ 0.00` charge reflects a local endpoint with no token tariff; hardware, electricity, and operations are explicitly out of scope. Latency is host-specific, so rerun on the target host before deciding.
 
 ## Quickstart
 
